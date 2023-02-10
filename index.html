@@ -1,24 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>WebGL Demo</title>
-    <link rel="stylesheet" href="./webgl.css" type="text/css" />
-    <link rel="stylesheet" href="./style.css" type="text/css" />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"
-      integrity="sha512-zhHQR0/H5SEBL3Wn6yYSaTTZej12z0hVZKOv3TwCUXT1z5qeqGcXJLLrbERYRScEDDpYIJhPC1fk31gqR783iQ=="
-      crossorigin="anonymous"
-      defer></script>
-    <script src="webgl-demo.js" type="module" defer></script>
-    <script src="draw-scene.js" type="module" defer></script>
-  </head>
-
-  <body>
-    <canvas id="glcanvas" width="640" height="480"></canvas>
-    <div class="slidecontainer">
-      <input type="range" min="45" max="100" value="45" class="slider" id="myRange">
-      <p id="demo"></p>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS50 Final Project</title>
+</head>
+<body onload="InitGl();">
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <script src="index.js"></script>
+</body>
 </html>
