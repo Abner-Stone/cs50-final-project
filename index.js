@@ -41,6 +41,6 @@ var InitGl = function() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
     
     
-    var vertexShader = gl.createShader(gl.VERTEXT_SHADER)
+    var vertexShader = gl.createShader(gl.VERTEX_SHADER)
     var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
 }
