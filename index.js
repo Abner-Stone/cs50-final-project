@@ -153,6 +153,10 @@ var InitGl = function() {
     mat4.identity(viewMatrix)
     mat4.identity(projMatrix)
 
+    gl.uniformMatrix4fv(worldMatLocation, gl.FALSE, worldMatrix)
+    gl.uniformMatrix4fv(viewMatLocation, gl.FALSE, viewMatrix)
+    gl.uniformMatrix4fv(projMatLocation, gl.FALSE, projMatrix)
+
 	//
 	// Main render loop
 	//
