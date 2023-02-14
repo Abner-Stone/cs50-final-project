@@ -1,15 +1,25 @@
+//
+// This line of code was pointed out by @polar5631 in a youtube comment.
+//
+const { mat4 } = glMatrix;
+
 var vertexShaderSource = 
 `
 precision mediump float;
 
-attribute vec2 vertPosition;
+attribute vec3 vertPosition;
 attribute vec3 vertColor;
+
+uniform mat4 mWorld;
+uniform mat4 mView;
+uniform mat4 mProj;
+
 varying vec3 fragColor;
 
 void main()
 {
     fragColor = vertColor;
-    gl_Position = vec4(vertPosition, 0.0, 1.0);
+    gl_Position = mProj * mView * mWorld * vec4(vertPosition, 1.0);
 }
 `;
 
@@ -100,9 +110,9 @@ var InitGl = function() {
     //
     var triangleVertices = 
     [
-        0.0, 0.5, 1.0, 0.0, 0.0,
-        -0.5, -0.5, 0.0, 1.0, 1.0,
-        0.5, -0.5, 0.0, 0.0, 1.0
+        0.0, 0.5, 0.0, 1.0, 0.0, 0.0,
+        -0.5, -0.5, 0.0, 0.0, 1.0, 1.0,
+        0.5, -0.5, 0.0, 0.0, 0.0, 1.0
     ]
 
     var triangleVertexBufferObject = gl.createBuffer();
@@ -113,10 +123,10 @@ var InitGl = function() {
 	var colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
 	gl.vertexAttribPointer(
 		positionAttribLocation, // Attribute location
-		2, // Number of elements per attribute
+		3, // Number of elements per attribute
 		gl.FLOAT, // Type of elements
 		gl.FALSE,
-	    5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
+	    6 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
 		0 // Offset from the beginning of a single vertex to this attribute
 	);
     gl.vertexAttribPointer(
@@ -124,12 +134,24 @@ var InitGl = function() {
 		3, // Number of elements per attribute
 		gl.FLOAT, // Type of elements
 		gl.FALSE,
-	    5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
-		2 * Float32Array.BYTES_PER_ELEMENT // Offset from the beginning of a single vertex to this attribute
+	    6 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
+		3 * Float32Array.BYTES_PER_ELEMENT // Offset from the beginning of a single vertex to this attribute
 	);
 
     gl.enableVertexAttribArray(positionAttribLocation);
     gl.enableVertexAttribArray(colorAttribLocation);
+
+    var worldMatLocation = gl.getUniformLocation(program, 'mWorld')
+    var viewMatLocation = gl.getUniformLocation(program, 'mView')
+    var projMatLocation = gl.getUniformLocation(program, 'projMat')
+
+    var worldMatrix = new Float32Array(16)
+    var viewMatrix = new Float32Array(16)
+    var projMatrix = new Float32Array(16)
+
+    mat4.identity(worldMatrix)
+    mat4.identity(viewMatrix)
+    mat4.identity(projMatrix)
 
 	//
 	// Main render loop
