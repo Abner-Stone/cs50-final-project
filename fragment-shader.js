@@ -1,4 +1,4 @@
-export var fragmentShader = 
+var fragmentShaderText = 
 `
 precision mediump float;
 
