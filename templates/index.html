@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block body_attrs %} onload="Init();" {% endblock %}
+
+{% block main %}
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <div id="counter">Time stared at cube: 0 seconds</div>
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/gl-matrix.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/vertex-shader.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/fragment-shader.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/init-shaders.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/init-program.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/counter.js')}}"></script>
+{% endblock %}

@@ -1,5 +1,3 @@
-const { mat4 } = glMatrix
-
 var Init = function() {
     var canvas = document.getElementById("canvas")
     var gl = canvas.getContext("webgl")
@@ -120,9 +118,9 @@ var Init = function() {
 	var worldMatrix = new Float32Array(16);
 	var viewMatrix = new Float32Array(16);
 	var projMatrix = new Float32Array(16);
-	mat4.identity(worldMatrix);
-	mat4.lookAt(viewMatrix, [0, 0, -8], [0, 0, 0], [0, 1, 0]);
-	mat4.perspective(projMatrix, glMatrix.glMatrix.toRadian(45), canvas.clientWidth / canvas.clientHeight, 0.1, 1000.0);
+	glMatrix.mat4.identity(worldMatrix);
+	glMatrix.mat4.lookAt(viewMatrix, [0, 0, -8], [0, 0, 0], [0, 1, 0]);
+	glMatrix.mat4.perspective(projMatrix, glMatrix.glMatrix.toRadian(45), canvas.clientWidth / canvas.clientHeight, 0.1, 1000.0);
 
 	gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 	gl.uniformMatrix4fv(matViewUniformLocation, gl.FALSE, viewMatrix);
@@ -135,13 +133,13 @@ var Init = function() {
 	// Main render loop
 	//
 	var identityMatrix = new Float32Array(16);
-	mat4.identity(identityMatrix);
+	glMatrix.mat4.identity(identityMatrix);
 	var angle = 0;
 	var loop = function () {
 		angle = performance.now() / 1000 / 6 * 2 * Math.PI;
-		mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0]);
-		//mat4.rotate(xRotationMatrix, identityMatrix, angle / 4, [1, 0, 0]);
-		mat4.mul(worldMatrix, yRotationMatrix, identityMatrix);
+		glMatrix.mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0]);
+		glMatrix.mat4.rotate(xRotationMatrix, identityMatrix / 4, angle, [1, 0, 0]);
+		glMatrix.mat4.mul(worldMatrix, yRotationMatrix, identityMatrix);
 		gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 
         gl.clearColor(0.121, 0.584, 0.741, 1.0);
