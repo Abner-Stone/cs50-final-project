@@ -3,11 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block refferer %}
+  {% endblock %}
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="../static/js/jquery-3.6.3.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/dist/output.css')}}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
+        integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M"
+        crossorigin="anonymous">
+  </script>
   <title>CS50 Final Project</title>
 </head>
-<body {% block body_attrs %}{% endblock %}>
+<body {% block body_attrs %}{% endblock %} class="h-screen bg-gray-900">
   {% block main %}
   {% endblock %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 </body>
 </html>
