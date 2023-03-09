@@ -2,9 +2,11 @@
 
 {% block body_attrs %} onload="Init();" {% endblock %}
 
-{% block main %}   
-    <canvas id="canvas" width="600" height="400"></canvas>
-    <div id="counter" class="text-white">Time stared at cube: 0 seconds</div>
+{% block main %}
+<div class="m-auto w-6/12 p-2.5">
+    <canvas id="canvas" class="justify-center" width="600" height="400"></canvas>
+    <div id="counter" class="text-white justify-center">Time stared at cube: 0 seconds</div>
+</div>
     <script src="{{ url_for('static', filename='js/main.js')}}"></script>
     <script src="{{ url_for('static', filename='js/gl-matrix.js')}}"></script>
     <script src="{{ url_for('static', filename='js/vertex-shader.js')}}"></script>
