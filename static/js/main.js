@@ -12,7 +12,7 @@ var Init = function() {
         }
     }
 
-    gl.clearColor(0.121, 0.584, 0.741, 1.0)
+    gl.clearColor(0.31, 0.41, 0.55, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
     gl.enable(gl.DEPTH_TEST);
 	gl.enable(gl.CULL_FACE);
@@ -142,7 +142,7 @@ var Init = function() {
 		glMatrix.mat4.mul(worldMatrix, yRotationMatrix, identityMatrix);
 		gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
 
-        gl.clearColor(0.121, 0.584, 0.741, 1.0);
+        gl.clearColor(0.31, 0.41, 0.55, 1.0);
 		gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
 		gl.drawElements(gl.TRIANGLES, boxIndices.length, gl.UNSIGNED_SHORT, 0);
 

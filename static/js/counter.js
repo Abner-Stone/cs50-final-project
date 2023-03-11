@@ -7,3 +7,12 @@ function incrementSeconds() {
 }
 
 var cancel = setInterval(incrementSeconds, 1000);
+
+window.addEventListener('beforeunload', (event) => {
+    $.ajax({
+        url: '/save',
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(seconds)
+    })
+})
