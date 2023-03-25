@@ -13,10 +13,16 @@
         <input class="rounded-lg" id="backup-email" name="backup-email" placeholder="Backup Email" type="email">
     </div>
     <div class="pb-3 flex justify-center rounded-lg">
-        <input class="rounded-lg" id="password" name="password" placeholder="Password" type="password">
+        <input class="rounded-lg" id="view-password" name="password" placeholder="Password" type="password">
     </div>
     <div class="pb-3 flex justify-center rounded-lg">
-        <input class="rounded-lg" id="password" name="confirmation" placeholder="Confirm Password" type="password">
+        <label class="inline-block pr-2.5 whitespace-nowrap"><input class="align-middle rounded-lg" type="checkbox" onclick="toggleVisibility()"><span class="align-middle pl-1 text-white font-mono">Show Password</span></label>
+    </div>
+    <div class="pb-3 flex justify-center rounded-lg">
+        <input class="rounded-lg" id="view-confirmation-password" name="confirmation" placeholder="Confirm Password" type="password">
+    </div>
+    <div class="pb-3 flex justify-center rounded-lg">
+        <label class="inline-block pr-2.5 whitespace-nowrap"><input class="align-middle rounded-lg" type="checkbox" onclick="toggleConfirmationVisibility()"><span class="align-middle pl-1 text-white font-mono">Show Password</span></label>
     </div>
     <div class="pb-3 flex justify-center rounded-lg">
         <button class="flex justify-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" type="submit">Sign Up</button>

@@ -8,11 +8,13 @@ function incrementSeconds() {
 
 var cancel = setInterval(incrementSeconds, 1000);
 
-window.addEventListener('beforeunload', (event) => {
+function saveSeconds() {
+    console.log("Saving seconds to database")
     $.ajax({
         url: '/save',
         type: "POST",
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(seconds)
     })
-})
+    console.log("test")
+}

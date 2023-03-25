@@ -16,8 +16,8 @@
   </script>
   <title>CS50 Final Project</title>
 </head>
-<body {% block body_attrs %}{% endblock %} class="h-screen bg-gray-800">
-  <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+<body {% block body_attrs %}{% endblock %} class="h-screen bg-gray-800 font-mono">
+  <nav class="bg-gray-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
     <div class="flex items-center md:order-2">
         <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
@@ -63,7 +63,10 @@
           <a href="#" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
         </li>
         <li>
-          <a href="/signup" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Signup</a>
+          <a href="/signup" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Sign up</a>
+        </li>
+        <li>
+          <a href="/login" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Log in</a>
         </li>
       </ul>
     </div>
@@ -73,4 +76,39 @@
   {% endblock %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 </body>
+<script>
+  // Get the user-agent string
+  let userAgentString = navigator.userAgent;
+  
+  // Detect Chrome
+  let chromeAgent = userAgentString.indexOf("Chrome") > -1;
+
+  // Detect Safari
+  let safariAgent = userAgentString.indexOf("Safari") > -1;
+    
+  // Discard Safari since it also matches Chrome
+  if ((chromeAgent) && (safariAgent)) safariAgent = false;
+
+  console.log(safariAgent)
+
+  function toggleVisibility() {
+      var checkbox = document.getElementById("view-password")
+      var _checkbox = document.getElementById("view-confirmation-password")
+      if (checkbox.type === "password") {
+          checkbox.type = "text"
+      }
+      else {
+          checkbox.type = "password"
+      }
+  }
+  function toggleConfirmationVisibility() {
+    var _checkbox = document.getElementById("view-confirmation-password")
+    if (_checkbox.type === "password") {
+      _checkbox.type = "text"
+    }
+    else {
+        _checkbox.type = "password"
+    }
+}
+</script>
 </html>

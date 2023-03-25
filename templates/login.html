@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="m-32">
+<form action="/login" method="post">
+    <div class="pb-3 flex justify-center rounded-lg">
+        <input autocomplete="off" autofocus class="rounded-lg" id="username" name="username-email" placeholder="Username/Email" type="text">
+    </div>
+    <div class="pb-3 flex justify-center rounded-lg">
+        <input class="rounded-lg" id="view-password" name="password" placeholder="Password" type="password">
+    </div>
+    <div class="pb-3 flex justify-center rounded-lg">
+        <label class="inline-block pr-2.5 whitespace-nowrap"><input class="align-middle rounded-lg" type="checkbox" onclick="toggleVisibility()"><span class="align-middle pl-1 text-white font-mono">Show Password</span></label>
+    </div>
+    <div class="pb-3 flex justify-center rounded-lg">
+        <button class="flex justify-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" type="submit">Log In</button>
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div>
+        {% for message in messages %}
+        <h1 class="text-white text-2xl flex justify-center font-mono">{{ message }}</h1>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+</form>
+</div>
+{% endblock %}

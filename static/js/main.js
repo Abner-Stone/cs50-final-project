@@ -1,6 +1,8 @@
 var Init = function() {
     var canvas = document.getElementById("canvas")
     var gl = canvas.getContext("webgl")
+	
+	var xRot = document.getElementById("xRot")
 
     if (!gl)
     {
@@ -138,9 +140,15 @@ var Init = function() {
 	var loop = function () {
 		angle = performance.now() / 1000 / 6 * 2 * Math.PI;
 		glMatrix.mat4.rotate(yRotationMatrix, identityMatrix, angle, [0, 1, 0]);
-		glMatrix.mat4.rotate(xRotationMatrix, identityMatrix / 4, angle, [1, 0, 0]);
-		glMatrix.mat4.mul(worldMatrix, yRotationMatrix, identityMatrix);
-		gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+		glMatrix.mat4.rotate(xRotationMatrix, identityMatrix, angle, [-1, 0, 0]);
+		if (xRot.checked) {
+			glMatrix.mat4.mul(worldMatrix, identityMatrix, xRotationMatrix)
+			gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix)
+		}
+		else {
+			glMatrix.mat4.mul(worldMatrix, yRotationMatrix, identityMatrix);
+			gl.uniformMatrix4fv(matWorldUniformLocation, gl.FALSE, worldMatrix);
+		}
 
         gl.clearColor(0.31, 0.41, 0.55, 1.0);
 		gl.clear(gl.DEPTH_BUFFER_BIT | gl.COLOR_BUFFER_BIT);
