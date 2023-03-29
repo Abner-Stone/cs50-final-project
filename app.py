@@ -4,6 +4,7 @@ import requests
 import string
 import random
 import re
+from verify_email import send_email
 
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
@@ -23,6 +24,25 @@ con = sqlite3.connect("users.db", check_same_thread=False, timeout=30)
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+@app.route("/verify", methods=["GET", "POST"])
+def verify():
+    if request.method == "GET":
+        url_code = int(request.args.get("code"))
+        try:
+            session['code']
+        except:
+            print("NO CODE")
+            return redirect("/")
+        
+        
+        
+        if url_code == session['code']:
+            print("CODE CURRENT: EMAIL VERIFIED")
+            session['email_verified'] = True
+            return redirect("/")
+        else:
+            return redirect("/")
+
 @app.route("/save", methods=["GET", "POST"])
 def save():
     if request.method == "POST":
@@ -32,7 +52,7 @@ def save():
             session['name']
         except Exception as e:
             print("EXCEPTION OCCURED")
-            return redirect("/")
+            print("Must be signed in to save score")
 
         seconds_query="""
             UPDATE acc_info SET seconds = ? WHERE username = ?
@@ -54,7 +74,7 @@ def index():
         session['name']
     except Exception as e:
         print("CURRENTLY LOGGED OUT")
-        return render_template("index.html", picture_data=get_random_string(8), logged_out=True)
+        return render_template("index.html", picture_data=get_random_string(8), logged_out=True, seconds=0, email_verified=False)
         
     picture_query = """SELECT picture_data FROM acc_info
         WHERE username = ?"""
@@ -62,10 +82,24 @@ def index():
     db = con.cursor()
     picture_data = db.execute(picture_query, picture_data)
         
-    picture = picture_data.fetchone()[0]
-    print(picture)
-        
-    return render_template("index.html", username=session['name'], email=session['email'], picture_data=picture, logged_out=False)
+    session["picture"] = picture_data.fetchone()[0]
+
+    get_seconds_query = """SELECT seconds FROM acc_info WHERE username = ?"""
+    res = tuple(map(str, session['name'].split(', ')))
+    seconds_query_result = db.execute(get_seconds_query, res)
+    seconds = seconds_query_result.fetchone()[0]
+    session["checked_seconds"] = 0
+    if not seconds:
+        session["checked_seconds"] = 0
+    else:
+        session["checked_seconds"] = seconds
+
+    print(session["checked_seconds"])
+    
+    try:
+        return render_template("index.html", username=session['name'], email=session['email'], picture_data=session["picture"], logged_out=False, seconds=session["checked_seconds"], email_verified=session["email_verified"])
+    except:
+        return render_template("index.html", username=session['name'], email=session['email'], picture_data=session["picture"], logged_out=False, seconds=session["checked_seconds"], email_verified=False)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -220,8 +254,6 @@ def signup():
                 error = 'Password must match confirmation password'
                 flash(error)
                 return render_template("signup.html", error=error, picture_data=get_random_string(8), logged_out=True)   
-            print(info["pass_hash"])
-            print(info["confirmation_pass"])
 
             acc_info_query = """INSERT INTO acc_info
                             (username, user_profile, user_email, pass_hash, backup_email, picture_data) 
@@ -234,9 +266,16 @@ def signup():
             session['name'] = info['name']
             print(session['name'])
             session['email'] = info['email']
+            session['code'] = hash(get_random_string(8))
+            print(f"CODE IN APP.PY: {type(session['code'])}")
+            send_email(session['name'], session['email'], session['code'])
             return redirect("/")
     else:
         return render_template("signup.html", picture_data=get_random_string(8), logged_out=True)
+    
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 def get_random_string(length):
     # choose from all lowercase letter

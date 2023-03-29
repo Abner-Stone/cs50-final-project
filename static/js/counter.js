@@ -1,5 +1,7 @@
-var seconds = 0;
 var el = document.getElementById('counter');
+console.log(el.innerText.match(/\d/g))
+console.log(parseInt(el.innerText.match(/\d/g)))
+var seconds = parseInt(el.innerText.match(/\d/g))
 
 function incrementSeconds() {
     seconds += 1;
@@ -16,5 +18,5 @@ function saveSeconds() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(seconds)
     })
-    console.log("test")
+    console.log("Seconds: " + JSON.stringify(seconds))
 }

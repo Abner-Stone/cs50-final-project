@@ -4,16 +4,22 @@
 
 {% block main %}
 <div class="m-auto w-6/12 p-2.5">
+    {% if email_verified == False and logged_out == False %}
+    <h1 class="flex justify-center text-red-500 font-mono pb-1">Check your email to verify it!</h1>
+    {% endif %}
     <canvas id="canvas" class="justify-center" width="600" height="400"></canvas>
-    <div id="counter" class="text-white font-mono">Time stared at cube: 0 seconds</div>
+    <div id="counter" class="text-white font-mono">Time stared at cube: {{ seconds }} seconds</div>
     <div class="pb-3 flex justify-center rounded-lg">
         <label class="inline-block pr-2.5 whitespace-nowrap"><input class="align-middle rounded-lg" type="checkbox" id="xRot" onclick="Init();"><span class="align-middle pl-1 text-white font-mono">Rotate on the X axis</span></label>
     </div>
-    <form action="/save" method="post">
-        <div class="pb-3 flex justify-center rounded-lg">
-            <button class="flex justify-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" type="submit" onclick="saveSeconds()">Save Score</button>
-        </div>
-    </form>
+    {% if logged_out == False %}
+    <div class="pb-3 flex justify-center rounded-lg">
+        <button class="flex justify-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2" type="submit" onclick="saveSeconds()">Save Score</button>
+    </div>
+    {% endif %}
+    {% if logged_out == True %}
+    <h1 class="flex justify-center pt-32 text-gray-400 font-mono">Must be signed in to save score!</h1>
+    {% endif %}
 </div>
     <script src="{{ url_for('static', filename='js/main.js')}}"></script>
     <script src="{{ url_for('static', filename='js/gl-matrix.js')}}"></script>
