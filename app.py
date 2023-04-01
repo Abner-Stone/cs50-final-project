@@ -269,11 +269,23 @@ def signup():
             send_email(session['name'], session['email'], session['code'])
             return redirect("/")
     else:
-        return render_template("signup.html", picture_data=get_random_string(8), logged_out=True)
+        try:
+            session['name']
+        except:
+            return render_template("signup.html", logged_out=True, picture_data=get_random_string(8))
+        else:
+            return render_template("signup.html", username=session['name'], email=session['email'], picture_data=session["picture"], logged_out=False)
+
     
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    try:
+        session['name']
+    except:
+        return render_template("about.html", logged_out=True, picture_data=get_random_string(8))
+    else:
+        return render_template("about.html", username=session['name'], email=session['email'], picture_data=session["picture"], logged_out=False)
+
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -299,7 +311,7 @@ def leaderboard():
     try:
         session['name']
     except:
-        return render_template("leaderboard.html", logged_out=True, top10username=usernames, top10second=seconds, len=len(seconds_list))
+        return render_template("leaderboard.html", logged_out=True, picture_data=get_random_string(8), top10username=usernames, top10second=seconds, len=len(seconds_list))
     else:
         return render_template("leaderboard.html", username=session['name'], email=session['email'], picture_data=session["picture"], logged_out=False, top10username=usernames, top10second=seconds, len=len(seconds_list))
 
