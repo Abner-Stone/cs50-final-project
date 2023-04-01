@@ -93,8 +93,6 @@ def index():
         session["checked_seconds"] = 0
     else:
         session["checked_seconds"] = seconds
-
-    print(session["checked_seconds"])
     
     try:
         return render_template("index.html", username=session['name'], email=session['email'], picture_data=session["picture"], logged_out=False, seconds=session["checked_seconds"], email_verified=session["email_verified"])
@@ -277,6 +275,34 @@ def signup():
 def about():
     return render_template("about.html")
 
+@app.route("/leaderboard")
+def leaderboard():
+    top_10_username_query = """SELECT username FROM acc_info ORDER BY seconds DESC LIMIT 10
+    """
+    db = con.cursor()
+    username_result = db.execute(top_10_username_query)
+    usernames = username_result.fetchall()
+    db.close()
+    top_10_second_query = """SELECT seconds FROM acc_info ORDER BY seconds DESC LIMIT 10
+    """
+    db = con.cursor()
+    seconds_result = db.execute(top_10_second_query)
+    seconds = seconds_result.fetchall()
+    db.close()
+    seconds_list = []
+    for i in range(len(seconds)):
+        if seconds[i] == (None,):
+            seconds[i] = (0,)
+        seconds_list.append(seconds[i])
+    seconds_list.append('Placeholder')
+    print(seconds_list)
+    try:
+        session['name']
+    except:
+        return render_template("leaderboard.html", logged_out=True, top10username=usernames, top10second=seconds, len=len(seconds_list))
+    else:
+        return render_template("leaderboard.html", username=session['name'], email=session['email'], picture_data=session["picture"], logged_out=False, top10username=usernames, top10second=seconds, len=len(seconds_list))
+
 def get_random_string(length):
     # choose from all lowercase letter
     letters = string.ascii_lowercase
@@ -293,4 +319,4 @@ def convertTuple(tup):
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(24)
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=False)

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="h-screen pb-16 flex justify-center items-center">
+<table class="table-auto border-collapse">
+    <thead>
+        <tr class="bg-gray-700 text-white text-mono">
+            <td class="p-2">Name</td>
+            <td class="p-2">Seconds</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in range(len-1)%}
+                <tr class="even:bg-gray-500 odd:bg-gray-700">
+                    <td class="p-2 text-white text-mono">{{ top10username[i][0] }}</td>
+                    <td class="p-2 text-white text-mono">{{ top10second[i][0] }}</td>
+                </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

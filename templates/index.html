@@ -5,9 +5,9 @@
 {% block main %}
 <div class="m-auto w-6/12 p-2.5">
     {% if email_verified == False and logged_out == False %}
-    <h1 class="flex justify-center text-red-500 font-mono pb-1">Check your email to verify it!</h1>
+    <h1 class="flex justify-center text-red-500 font-mono pb-1">Check your email to verify your account</h1>
     {% endif %}
-    <canvas id="canvas" class="justify-center" width="600" height="400"></canvas>
+    <canvas id="canvas" class="flex flex-row justify-evenly" width="600" height="400"></canvas>
     <div id="counter" class="text-white font-mono">Time stared at cube: {{ seconds }} seconds</div>
     <div class="pb-3 flex justify-center rounded-lg">
         <label class="inline-block pr-2.5 whitespace-nowrap"><input class="align-middle rounded-lg" type="checkbox" id="xRot" onclick="Init();"><span class="align-middle pl-1 text-white font-mono">Rotate on the X axis</span></label>
