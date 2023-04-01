@@ -1,5 +1,5 @@
 # YOUR PROJECT TITLE
-#### Video Demo:  <URL HERE>
+#### Video Demo:  <https://youtu.be/1t6Z_eXrlbQ>
 #### Description:
 My final project uses the use of WebGL and Python and Flask to deliver a web app demonstrating the capabilities of WebGL, while also including a full leaderboard system, sign-in/sign-out system, and login interface. Coupled with a verification email to "verify," their account.
 
@@ -19,4 +19,16 @@ For example:
   #CODE GOES HERE
 `
 
-I also have a counter.js file that saves the seconds "stared," at the cube in the home page, using an ajax request to send it to my app.py, which then updates it in the database.
+I also have a counter.js file that saves the seconds "stared," at the cube in the home page, using an ajax request to send it to my app.py, which then updates it in the database. It also uses jQuery to send the ajax request.
+
+My database is stored in the root folder of my project which goes under the name `users.db`. Also another side note is I mostly expanded my WebGL code and seperated many of the files apart, such as put the different shaders like the vertex shader and fragment shaders in seperate files.
+
+For the tailwind css I followed the starter guide in the tailwind css documentation. After following that, I have an input.css file that contains the pre requisites and then I have a dist folder that contains my outputted css from tailwind. Using tailwind in my html was very streamlined after installing a vs-code extension to make it easier to implement.
+
+When I was doing the flask app problem sets in the course, I noticed the automatic refresh after changes were made. When I started developing this project, I had trouble trying to set that up. Turning to the discord community, I made a run.py file that automatically refreshes which made testing much more faster.
+
+For my signup implementation, I was going to try and use google's sign-up api, but I found it way too annoying to work with. Some of the problems I ran into was the fact that I couldn't figure out how to send the google data from my javascript to my app.py file. Which is why I eventually decided to swap to manually implementing it.
+
+I will say, before I ever began trying to implement OpenGL or WebGL, I wanted to make a web based app that tracked events using ticketmaster's api, but I eventually found it not in my interest, which hindered my ability to work on the project. Which is why I finally landed on this final project idea.
+
+The hardest part about this project I would say is finding time to work on it. I mostly worked on it while I was in school, which proved difficult as you can only get so much stuff done in a small amount of time. But eventually I finished my final project!
